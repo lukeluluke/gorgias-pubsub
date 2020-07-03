@@ -1,0 +1,8 @@
+{
+  "name": "subscriber",
+  "version": "1.0.0",
+  "description": "subscriber service of ticket events",
+  "main": "index.js",
+  "author": "luke",
+  "license": "MIT"
+}

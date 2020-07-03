@@ -1,0 +1,9 @@
+{
+  "name": "gorgias-pubsub",
+  "version": "1.0.0",
+  "description": "webservices for gorgias tickets events",
+  "main": "index.js",
+  "repository": "git@github.com:lukeluluke/gorgias-pubsub.git",
+  "author": "chao lu <luke0427@hotmail.com>",
+  "license": "MIT"
+}

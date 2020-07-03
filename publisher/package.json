@@ -1,0 +1,8 @@
+{
+  "name": "publisher",
+  "version": "1.0.0",
+  "description": "publisher service of ticket events",
+  "main": "index.js",
+  "author": "luke",
+  "license": "MIT"
+}
