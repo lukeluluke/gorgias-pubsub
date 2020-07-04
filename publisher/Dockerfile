@@ -8,5 +8,8 @@ RUN yarn install --only=production
 # Copy local code to the container image.
 COPY . ./
 
+#rename envrionment file
+COPY ./.env.example.production ./.env
+
 # Run the web service on container startup.
 CMD [ "yarn", "start" ]
