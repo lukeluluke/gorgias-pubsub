@@ -5,5 +5,13 @@
   "main": "index.js",
   "repository": "git@github.com:lukeluluke/gorgias-pubsub.git",
   "author": "chao lu <luke0427@hotmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/pubsub": "^2.1.0",
+    "dotenv": "^8.2.0"
+  },
+  "scripts": {
+    "start": "nodemon index.js",
+    "start:publisher": "cd publisher && nodemon index.js"
+  }
 }
