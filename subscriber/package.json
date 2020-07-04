@@ -4,5 +4,11 @@
   "description": "subscriber service of ticket events",
   "main": "index.js",
   "author": "luke",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/datastore": "^6.0.0",
+    "@google-cloud/pubsub": "^2.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
 }

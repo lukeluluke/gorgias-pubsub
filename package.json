@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "nodemon index.js",
-    "start:publisher": "cd publisher && nodemon index.js"
+    "start:publisher": "cd publisher && nodemon index.js",
+    "start:subscriber": "cd subscriber && nodemon index.js"
   }
 }
