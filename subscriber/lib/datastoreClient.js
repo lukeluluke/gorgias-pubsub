@@ -23,7 +23,7 @@ class DatastoreClient {
                     value: val ? val : ''
                 })
             });
-            console.log(ticketData);
+
             const ticketKey = this.db.key('Ticket');
             const entity = {
                 key: ticketKey,
