@@ -1,4 +1,5 @@
-#Google Cloud Pub/Sub for Gorgias ticket event
+# Google Cloud Pub/Sub for Gorgias ticket event
+
 This application will setup a Google cloud pub/sub service, which can listen for any tickets event from Gorgias, and 
 publish event as message into Pub/Sub, then handle the ticket and save into Google Datastore
 
@@ -40,7 +41,7 @@ Now it is time for you to think about a name for your project
     make project-setup
     ```
 #### Setup Cloud Datastore 
-You will need to manually enable [Datastore](https://cloud.google.com/datastore) for you project crated above 
+You will need to manually enable [Datastore](https://cloud.google.com/datastore) for you project created above 
 
 #### Setup Pub/Sub
 1. You will need define following value in Makefile
@@ -59,12 +60,6 @@ You will need to manually enable [Datastore](https://cloud.google.com/datastore)
     
     #Secure your webhook which will be used by Gorgias
     VERIFICATION_TOKEN := ***********
-    
-    #http port for your webhook (8080)
-    PUBLISHER_SERVICE_PORT := ***********
-    
-    #http port for your subscriber (8080)
-    SUBSCRIBER_SERVICE_PORT := ***********
     
     #Timeout for you message subscriber (60)
     SUBSCRIPTION_TIMEOUT := ***********
@@ -101,7 +96,7 @@ Since we use pull subscriber, we will need to crete a schedule task to regularly
    SCHEDULE_TASK := ***********
    
    #Frenquency of scheduler task, e.g. */10 * * * * (every 10 mins)
-   SCHEDULE_TIME := */10 * * * *
+   SCHEDULE_TIME := ***********
     ```
 3. Run 
     ```makefile
