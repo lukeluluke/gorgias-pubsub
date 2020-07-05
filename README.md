@@ -167,10 +167,10 @@ created, you will need to create it as well**. Once project is created, update `
     - Run `make set-local-dev`
     
     Then follow steps:  
-       - Login to your Google Cloud Platform console
-       - Go to IAM & Admin, and then Service Accounts
-       - Select the service account and create key
-       - download key to project root folder and rename it to `key.json`  
+      - Login to your Google Cloud Platform console
+      - Go to IAM & Admin, and then Service Accounts
+      - Select the service account and create key
+      - download key to project root folder and rename it to `key.json`  
               
 3. Create a local  `.env` file, and update variables 
     ```

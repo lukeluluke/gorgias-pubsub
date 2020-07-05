@@ -115,6 +115,9 @@ enable-services:
 	gcloud services enable run.googleapis.com
 	#cloud scheduler
 	gcloud services enable cloudscheduler.googleapis.com
+	#datastore
+	gcloud services enable datastore.googleapis.com
+
 add-cloud-build-role:
 	#cloud run admin
 	gcloud projects add-iam-policy-binding $(PROJECT_ID) \
