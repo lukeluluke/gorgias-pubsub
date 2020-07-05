@@ -29,7 +29,7 @@ class PubsubClient {
 
         const errorHandler = function (error) {
             // Do something with the error
-            console.error(`ERROR: ${error}`);
+            console.error(`ERROR: ${error.toString()}`);
             throw error;
         };
 

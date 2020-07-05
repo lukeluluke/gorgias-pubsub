@@ -10,20 +10,24 @@ class DatastoreClient {
     }
 
     async addTicket(ticket) {
+
         try {
-            if (!ticket) {
+            if (!ticket || typeof ticket !== 'object') {
                 return new Error('Invalid ticket');
             }
+
+           const ticketData = [];
+            Object.entries(ticket).forEach(([key, val]) => {
+                ticketData.push({
+                    name: key,
+                    value: val ? val : ''
+                })
+            });
 
             const ticketKey = this.db.key('Ticket');
             const entity = {
                 key: ticketKey,
-                data: [
-                    {
-                        name: 'id',
-                        value: ticket.ticket_id
-                    }
-                ]
+                data: ticketData
             };
             await this.db.save(entity);
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const Response = require('../lib/response');
 const PubSubClient = require('../lib/pubsubClient');
@@ -22,6 +23,9 @@ const verifyToken = () => {
         next();
     }
 }
+
+
+
 app.post('/publish-ticket', verifyToken(), async (req, res) => {
 
     if (!req.body) {
@@ -37,6 +41,11 @@ app.post('/publish-ticket', verifyToken(), async (req, res) => {
         return Response.jsonFailed(res, 400, e.toString(), ticket);
     }
 
+})
+
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/../index.html'))
 })
 
 module.exports = app;

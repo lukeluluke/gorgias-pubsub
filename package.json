@@ -11,8 +11,9 @@
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "start": "nodemon index.js",
-    "start:publisher": "cd publisher && nodemon index.js",
-    "start:subscriber": "cd subscriber && nodemon index.js"
+    "start": "node index.js",
+    "build": "cp .env key.json publisher && cp .env key.json subscriber && yarn install && yarn --cwd 'publisher' install && yarn --cwd 'subscriber' install",
+    "start:publisher": "node publisher/index.js",
+    "start:subscriber": "node subscriber/index.js"
   }
 }
