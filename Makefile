@@ -140,8 +140,6 @@ get-services-url:
 	gcloud run services list --platform managed
 
 create-scheduler:
-	#Creaee app
-	gcloud app create --region=$(REGION)
 	#Crete scheduler task
 	gcloud beta scheduler jobs create http $(SCHEDULE_TASK) --schedule "$(SCHEDULE_TIME)" \
        	--http-method=POST \
