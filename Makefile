@@ -100,6 +100,8 @@ create-pubsub:
 	gcloud pubsub subscriptions list
 
 enable-services:
+	#cloud pub/sub admin api
+	gcloud services enable pubsub.googleapis.com
 	#cloud build admin api
 	gcloud services enable cloudbuild.googleapis.com
 	#pp engine admin api

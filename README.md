@@ -153,11 +153,19 @@ make build-service
 You can develop and test Pub/Sub service locally 
 1. You need to have a project, you can refer to `Deployment ` for how to set up project, if you don't have a Cloud Datastore
 enabled, you will need to enable it as well. 
+    ```bash
+    #If you need to create new project
+    make create-project 
+   
+    #Set gcloud to use project   
+    make set-project
+    ```
 
 2. Setup service account
     * If you want to create new service account
     - Assign your idea account name to  `SERVICE_ACCOUNT_NAME` in `Makefile`
     - Run `make service-account` 
+    - Run `make enable services` to enable required services
     
     Then follow steps:  
        - Login to your Google Cloud Platform console
@@ -197,4 +205,5 @@ enabled, you will need to enable it as well.
     - Subscriber url `http://localhost:8090/pull`
         - POST request
         - No authorization is needed for local test
-        - No payload       
+        - No payload
+8. Login to cloud datastore, and you will see document               
