@@ -1,23 +1,37 @@
-PROJECT_ID := gorgias-pubsub-test1
-PROJECT_NUMBER := 458836795162
+PROJECT_ID := gorgias-pubsub-test3
+PROJECT_NUMBER := 102688730062
 ACCOUNT_ID := 018052-ACD5CB-B3D84A
 REGION := australia-southeast1
-SERVICE_ACCOUNT_NAME := gorgias-pubsub-user1
-PUBSUB_TOPIC := gorgias-ticket-1
-PUBSUB_PULL_SUBSCRIBER := gorgias-ticket-subscriber-1
-VERIFICATION_TOKEN := TaXR2Exp4zuDVddeD5quv8NwHVVxxARfnrHdFQcz
-PUBLISHER_SERVICE_PORT := 8080
-SUBSCRIBER_SERVICE_PORT := 8080
+SERVICE_ACCOUNT_NAME := gorgias-pubsub-user4
+PUBSUB_TOPIC := gorgias-ticket-3
+PUBSUB_PULL_SUBSCRIBER := gorgias-ticket-subscriber-3
+VERIFICATION_TOKEN := *******************
 SUBSCRIPTION_TIMEOUT := 60
-PUBLISHER_SERVICE_NAME := gorgias-publisher-1
-PUBLISHER_IMAGE := gorgias-publisher-1
-SUBSCRIBER_SERVICE_NAME := gorgias-subscriber-1
-SUBSCRIBER_IMAGE := gorgias-subscriber-1
-SUBSCRIBER_SERVICE_ENDPOINT := https://gorgias-subscriber-1-fqw7sikwpq-ts.a.run.app/pull
-
-
+PUBLISHER_SERVICE_NAME := gorgias-publisher-3
+PUBLISHER_IMAGE := gorgias-publisher-3
+SUBSCRIBER_SERVICE_NAME := gorgias-subscriber-3
+SUBSCRIBER_IMAGE := gorgias-subscriber-3
+SUBSCRIBER_SERVICE_ENDPOINT := https://gorgias-subscriber-3-y3rlwm2ofq-ts.a.run.app/
+SCHEDULE_TASK := gorgias-pubsub-schedule3
+SCHEDULE_TIME := */10 * * * *
 
 .PHONY: all
+All: project-setup pubsub-setup schedule-setup
+
+#Setup gcloud cli
+project-setup: set-project link-billing
+
+#Create PubSub, add service account, assign required roles, enable required services, build and deploy
+pubsub-setup: create-service-account add-roles create-pubsub enable-services add-cloud-build-role create-env build-publisher build-subscriber
+
+#Rebuild docker container and deploy
+build-service: create-env build-publisher build-subscriber
+
+#Create new service account
+service-account: create-service-account add-roles
+
+#Setup scheduler task
+schedule-setup: create-scheduler
 
 create-env:
 	rm -r .env
@@ -25,11 +39,15 @@ create-env:
 	echo 'TOPIC_NAME=$(PUBSUB_TOPIC)' >> .env
 	echo 'SUBSCRIBER_NAME=$(PUBSUB_PULL_SUBSCRIBER)' >> .env
 	echo 'VERIFICATION_TOKEN=$(VERIFICATION_TOKEN)' >> .env
-	echo 'PUBLISHER_SERVICE_PORT=$(PUBLISHER_SERVICE_PORT)' >> .env
-	echo 'SUBSCRIBER_SERVICE_PORT=$(SUBSCRIBER_SERVICE_PORT)' >> .env
 	echo 'SUBSCRIPTION_TIMEOUT=$(SUBSCRIPTION_TIMEOUT)' >> .env
 	#Add environment vars of production
 	cp .env publisher/.env.example.production && cp .env subscriber/.env.example.production
+
+get-project-info:
+	#List Projects
+	gcloud projects list
+	#Get list of bill accounts
+	gcloud alpha billing accounts list
 
 create-project:
 	#create new project
@@ -82,6 +100,10 @@ create-pubsub:
 	gcloud pubsub subscriptions list
 
 enable-services:
+	#cloud build admin api
+	gcloud services enable cloudbuild.googleapis.com
+	#pp engine admin api
+	gcloud services enable appengine.googleapis.com
 	#cloud run admin api
 	gcloud services enable run.googleapis.com
 	#cloud scheduler
@@ -103,10 +125,17 @@ build-subscriber:
 	cd subscriber && gcloud builds submit --config cloudbuild.yaml \
 		--substitutions=_IMAGE_NAME=$(SUBSCRIBER_IMAGE),_REGION=$(REGION),_SERVICE_NAME=$(SUBSCRIBER_SERVICE_NAME),_SERVICE_ACCOUNT=$(SERVICE_ACCOUNT_NAME)
 
+get-services-url:
+	#Get endpoint for your publisher and subscriber services
+	gcloud run services list --platform managed
+
 create-scheduler:
-	gcloud beta scheduler jobs create http test-job --schedule "* * * * *" \
+	#Creaee app
+	gcloud app create --region=$(REGION)
+	#Crete scheduler task
+	gcloud beta scheduler jobs create http $(SCHEDULE_TASK) --schedule "$(SCHEDULE_TIME)" \
        	--http-method=POST \
-       	--uri=$(SUBSCRIBER_SERVICE_ENDPOINT) \
+       	--uri=$(SUBSCRIBER_SERVICE_ENDPOINT)pull \
        	--oidc-service-account-email=$(SERVICE_ACCOUNT_NAME)@$(PROJECT_ID).iam.gserviceaccount.com   \
-       	--oidc-token-audience=$(SUBSCRIBER_SERVICE_ENDPOINT)
+       	--oidc-token-audience=$(SUBSCRIBER_SERVICE_ENDPOINT)pull
 
