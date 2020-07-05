@@ -151,7 +151,8 @@ make build-service
     
 ## Local development 
 You can develop and test Pub/Sub service locally 
-1. You need to have a project, you can refer to `Deployment ` for how to setup project
+1. You need to have a project, you can refer to `Deployment ` for how to set up project, if you don't have a Cloud Datastore
+enabled, you will need to enable it as well. 
 
 2. Setup service account
     * If you want to create new service account
