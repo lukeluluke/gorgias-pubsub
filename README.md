@@ -151,8 +151,8 @@ make build-service
     
 ## Local development 
 You can develop and test Pub/Sub service locally 
-1. You need to have a project, you can refer to `Deployment ` for how to set up project, if you don't have a Cloud Datastore
-enabled, you will need to enable it as well. 
+1. You need to have a project, you can refer to `Deployment ` for how to set up project, **if you don't have a Cloud Datastore
+created, you will need to create it as well**. Once project is created, update `PROJECT_NUMBER` in Makefile
     ```bash
     #If you need to create new project
     make create-project 
@@ -160,12 +160,11 @@ enabled, you will need to enable it as well.
     #Set gcloud to use project   
     make set-project
     ```
-
+    
 2. Setup service account
     * If you want to create new service account
     - Assign your idea account name to  `SERVICE_ACCOUNT_NAME` in `Makefile`
-    - Run `make service-account` 
-    - Run `make enable services` to enable required services
+    - Run `make set-local-dev`
     
     Then follow steps:  
        - Login to your Google Cloud Platform console

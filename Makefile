@@ -59,6 +59,11 @@ set-project:
 	#Set the project for the current session
 	gcloud config set project $(PROJECT_ID)
 
+#setup local dev environment
+set-local-dev: service-account
+	#cloud pub/sub admin api
+	gcloud services enable pubsub.googleapis.com
+
 link-billing:
 	#Link billing account to project
 	gcloud alpha billing accounts projects link $(PROJECT_ID) --account-id=$(ACCOUNT_ID)
