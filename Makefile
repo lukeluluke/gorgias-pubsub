@@ -34,7 +34,7 @@ service-account: create-service-account add-roles
 schedule-setup: create-scheduler
 
 create-env:
-	rm -r .env
+	rm -f .env
 	echo 'PROJECT_ID=$(PROJECT_ID)' >> .env
 	echo 'TOPIC_NAME=$(PUBSUB_TOPIC)' >> .env
 	echo 'SUBSCRIBER_NAME=$(PUBSUB_PULL_SUBSCRIBER)' >> .env
